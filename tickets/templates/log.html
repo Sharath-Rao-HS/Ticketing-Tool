@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Log</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron" style="height: 240px;">
+            <div class="row">
+                <div class="col">
+                    <h1>{{ project.projectName }}</h1>
+                    <p><b> Duration:</b> {{ project.startDate }} -
+                        {{ project.endDate }}</p>
+                    <p><b> Client:</b> {{ project.client }} </p>
+
+                    <p><b> Manager:</b> {{ project.managerName }} </p>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-3">
+            <h4><b>Module:</b> {{ticketHead.module}}</h4><br>
+            <h4><b>Priority:</b> {{ticketHead.priority}}</h4><br>
+            <h4><b>Status:</b> {{ticketHead.status}}</h4><br>
+            <h4><b>Employee:</b> {{ticketHead.Employee}}</h4><br>
+            <h4><b>Ticket Type:</b> {{ticketHead.Tickettype}}</h4><br>
+            <h4><b>Comment:</b> {{ticketHead.comments}}</h4><br>
+            <h5><b>Date:</b> {{ticketHead.date}}</h5><br>
+        </div>
+        <div class="col-9">
+            <h2>Log: {{ticketHead.title}}</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                      <th>TICKET ID</th>
+                      <th>PRIORITY</th>
+                      <th>STATUS</th>
+                      <TH>comments</TH>
+                      <th>DATE</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for i in ticketlogs %}
+                    <tr>
+                      <th scope="row">{{i.ticketid}}</th>
+                      <td>{{i.priority}}</td>
+                      <td>{{i.status}}</td>
+                      <td>{{i.comments}}</td>
+                      <td>{{i.date}}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>     
+            </table>
+        </div>
+    </div>
+    </div>        
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{% static 'createcss.css' %}"></script> 
+
+
+</body>
+</html>

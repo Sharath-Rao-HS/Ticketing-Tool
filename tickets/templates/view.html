@@ -1,0 +1,166 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <style>
+        button.btn:hover {
+            -webkit-transform: scale(1.1);
+            -moz-transform: scale(1.1);
+            -o-transform: scale(1.1);
+        }
+
+        button.btn {
+            -webkit-transform: scale(0.8);
+            -moz-transform: scale(0.8);
+            -o-transform: scale(0.8);
+            -webkit-transition-duration: 0.5s;
+            -moz-transition-duration: 0.5s;
+            -o-transition-duration: 0.5s;
+        }
+        a.btn:hover {
+            -webkit-transform: scale(1.1);
+            -moz-transform: scale(1.1);
+            -o-transform: scale(1.1);
+        }
+
+        a.btn {
+            -webkit-transform: scale(0.8);
+            -moz-transform: scale(0.8);
+            -o-transform: scale(0.8);
+            -webkit-transition-duration: 0.5s;
+            -moz-transition-duration: 0.5s;
+            -o-transition-duration: 0.5s;
+        }
+    </style>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron" style="height: 240px;">
+            <div class="row">
+                <div class="col">
+                    <h1>{{ project.projectName }}</h1>
+                    <p><b> Duration:</b> {{ project.startDate }} -
+                        {{ project.endDate }}</p>
+                    <p><b> Client:</b> {{ project.client }} </p>
+
+                    <p><b> Manager:</b> {{ project.managerName }} </p>
+                </div>
+                <div class="col" style="padding-top:100px;">
+                    <button id="edit" class="btn btn-primary a-btn-slide-text" style="width: 150px;">
+
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        <span><strong>Edit</strong></span>
+                    </button>
+                    <a href="/log/{{ ticket.id }}" class="btn btn-primary a-btn-slide-text" style="width: 150px;">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        <span><strong>Log</strong></span>            
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <form action="/view/{{ ticket.id }}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group row">
+                <div class="col">
+                    <label for="inputState">Module</label>
+                    <select id="module" class="form-control" name="module">
+                        <option value="{{ticket.module}}" selected>{{ticket.module}}</option>
+                        <option value="General">General</option>
+                        <option value="UI">Front End</option>
+                        <option value="Integration">Integration</option>
+                        <option value="DB">Back End</option>
+                    </select>
+                </div>
+                {% csrf_token %}
+                <div class="col">
+                    <label for="inputState">Priority</label>
+                    <select id="priority" class="form-control" name="priority">
+                        <option value="{{ticket.priority}}" selected>{{ticket.priority}}</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="inputState">Status</label>
+                    <select id="status" class="form-control" name="status">
+                        <option value="{{ticket.status}}" selected>{{ticket.status}}</option>
+                        <option value="Open">Open</option>
+                        <option value="work in progress">work in progress</option>
+                        <option value="pending for customer side">pending for customer side</option>
+                        <option value="solution Proposed">solution Proposed</option>
+                        <option value="closed">closed</option>
+                    </select> </div>
+            </div>{% csrf_token %}
+            <div class="form-group row">
+                <div class="col">
+                    <label for="inputState">Assigned To</label>
+                    <select id="asign" class="form-control" name="asign">
+                        <option value="{{employee.id}}" selected>{{employee.EmployeeName}}{{employee.id}}</option>
+
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="inputState">Task</label>
+                    <select id="task" class="form-control" name="task">
+                        <option value="{{ticket.Tickettype}}" selected>{{ticket.Tickettype}}</option>
+                        <option value="Development" >Development</option>
+                        <option value="Testing">Testing</option>
+                        <option value="Change_Request">Change_Request</option>
+                        <option value="Root_Cause">Root_Cause</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <label for="inputState">Title</label>
+                    <input type="text" class="form-control" name="title" id="title" value="{{ticket.title}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Summary</label>
+                <textarea class="form-control" id="summary" rows="3" name="summary"
+                   placeholder="{{ticket.comments}}" value="{{ticket.comments}}"></textarea>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="attachment" required name="attachment">
+                <label class="custom-file-label" for="validatedCustomFile">Attachments...</label>
+                <div class="invalid-feedback">Example invalid custom file feedback</div>
+            </div>
+            </br>
+            </br>
+            <div class="card">
+                <a href="{{ticket.attachment.url}}" target="_blank">{{ticket.attachment}}</a>
+            </div>
+            </br></br>
+            <input id='submit' type="submit" value="submit" class="custom-file"></input>
+        </form>
+    </div>
+
+    <script src="{% static 'viewjs.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'createcss.css' %}"></script>
+</body>
+
+</html>
